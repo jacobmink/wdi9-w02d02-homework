@@ -125,6 +125,8 @@ const game = {
             comp.score += 1;
             this.roundComp += 1;
             console.log(`${comp.name} wins!\n\n`);
+          } else {
+            console.log("It's a tie!");
           }
           player.pastPlayed.push(unpackCard(playerCard));
           // console.log(player.pastPlayed);
