@@ -105,7 +105,11 @@ const game = {
     },
     gamePlay(){
       while (this.fullDeck.length > 0){
-        console.log('\nNEW HAND FOR EVERYONE\n');
+        if (this.round == 0){
+          console.log('WELCOME TO POKEDOME');
+        }else {
+          console.log('\nNEW HAND FOR EVERYONE\n');
+        }
         this.dealCards();
         while (player.hand.length > 0){
           this.round += 1;
