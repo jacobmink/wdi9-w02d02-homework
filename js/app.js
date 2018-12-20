@@ -115,7 +115,7 @@ const game = {
           this.round += 1;
           let playerCard = player.hand.splice(0,1)[0];
           let compCard = comp.hand.splice(0,1)[0];
-          console.log(`\n\nRound ${this.round}`);
+          console.log(`%c \n\nRound ${this.round}`, 'style= font-size: 50px');
           console.log(`Player plays ---------- ${unpackCard(playerCard)}\nComputer plays ---------- ${unpackCard(compCard)}`);
           if (playerCard.damage > compCard.damage){
             player.score += 1;
@@ -147,3 +147,5 @@ const game = {
 
 
 game.gamePlay();
+
+$()

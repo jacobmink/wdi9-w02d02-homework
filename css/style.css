@@ -1,0 +1,9 @@
+/* .card-div {
+    display: inline-block;
+    height: 50px;
+    width: 40px;
+}
+*/
+.img-fluid {
+    max-width: 100%;
+}
