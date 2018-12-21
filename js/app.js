@@ -96,26 +96,32 @@ const game = {
         let randomIndex1 = Math.floor(Math.random() * (this.fullDeck.length - 1));
         let randomIndex2 = Math.floor(Math.random() * (this.fullDeck.length - 1));
           player.hand.push(this.fullDeck.splice(randomIndex1,1)[0]);
-          // console.log(randomIndex1);
           comp.hand.push(this.fullDeck.splice(randomIndex2,1)[0]);
-          // console.log(randomIndex2);
       }
+      // const $cardDiv = $("<div/>").addClass('col border border-primary');
+      $('#compCard1').replaceWith(`<div class='col border border-primary comp-card'>${comp.hand[0].name}<br>${comp.hand[0].damage}</>`)
+      $('#compCard2').replaceWith(`<div class='col border border-primary comp-card'>${comp.hand[1].name}\n${comp.hand[1].damage}</>`)
+      $('#compCard3').replaceWith(`<div class='col border border-primary comp-card'>${comp.hand[2].name}\n${comp.hand[2].damage}</>`)
+      $('#playerCard1').replaceWith(`<div class='col border border-primary player-card'>${player.hand[0].name}\n${player.hand[0].damage}</>`)
+      $('#playerCard2').replaceWith(`<div class='col border border-primary player-card'>${player.hand[1].name}\n${player.hand[1].damage}</>`)
+      $('#playerCard3').replaceWith(`<div class='col border border-primary player-card'>${player.hand[2].name}\n${player.hand[2].damage}</>`)
+
       console.log(`Player's hand: ${unpackCard(player.hand[0])} \n  ${unpackCard(player.hand[1])} \n ${unpackCard(player.hand[2])}`);
       console.log(`Computer's hand: ${unpackCard(comp.hand[0])} \n  ${unpackCard(comp.hand[1])} \n ${unpackCard(comp.hand[2])}`);
+
+      // Update cards left in sidebar
+      $('#cardsLeft').text(`${this.fullDeck.length}`);
+
     },
     gamePlay(){
       while (this.fullDeck.length > 0){
-        if (this.round == 0){
-          console.log('WELCOME TO POKEDOME');
-        }else {
-          console.log('\nNEW HAND FOR EVERYONE\n');
-        }
-        this.dealCards();
         while (player.hand.length > 0){
+          
           this.round += 1;
+          $('#roundNum').text(`${game.round}`);
           let playerCard = player.hand.splice(0,1)[0];
           let compCard = comp.hand.splice(0,1)[0];
-          console.log(`%c \n\nRound ${this.round}`, 'style= font-size: 50px');
+          console.log(`%c \n\nRound ${this.round}`, 'font-size: 40px');
           console.log(`Player plays ---------- ${unpackCard(playerCard)}\nComputer plays ---------- ${unpackCard(compCard)}`);
           if (playerCard.damage > compCard.damage){
             player.score += 1;
@@ -137,15 +143,21 @@ const game = {
       let winner = (player.score > comp.score) ? player.name:comp.name;
       console.log(`NO MORE CARDS YA NERDS!\nThe winner is: ${winner}!`);
     }
-
-
-
 };
 
 
 
+$('#gameButton').on('click', function(){
+  game.dealCards();
+  $(this).replaceWith('<h2>Click a card in your hand to play!<h2/>');
+})
 
-
-game.gamePlay();
-
-$()
+$('.player-hand').on('click', (e)=>{
+    if ($(e.target).hasClass('player-card')){
+      // console.log(e.target);
+      // $(e.target).hide();
+      $('#player-played').replaceWith(e.target);
+      $('#comp-played').replaceWith(`${$('.comp-card')}`);
+      console.log($('.comp-card'));
+    }
+})
